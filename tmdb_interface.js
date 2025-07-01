@@ -1,3 +1,4 @@
+const API_KEY;
 let BASE_URL;
 // should let you get the different sizes by simply changing array index
 let POSTER_SIZES;
@@ -13,7 +14,15 @@ async function getJSON(url) {
 }
 
 async function getPopularFilms() {
-    return await getJSON(`https://api.themoviedb.org/3/movie/popular?api_key={API_KEY}`);
+    return await getJSON(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`);
+}
+
+async function getNowPlayingFilms() {
+    return await getJSON(`https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`);
+}
+
+async function getUpcomingFilms() {
+    return await getJSON(`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}`);
 }
 
 function getImageLinkOfFilm(film, size_index = 6) {
@@ -28,32 +37,42 @@ function getImageLinkOfFilm(film, size_index = 6) {
 
 async function getImageAPIData() {
     // gets the data about what image sizes are available and the correct url to use
-    let json = await getJSON(`https://api.themoviedb.org/3/configuration?api_key={API_KEY}`);
+    let json = await getJSON(`https://api.themoviedb.org/3/configuration?api_key=${API_KEY}`);
     return json["images"];
 }
 
-function getListOfFilms(films) {
+function createListOfFilms(films) {
     // creates the nodes for the films themselves
-    let ul = document.createElement("ul");
+    let posters = document.createElement("div");
+    posters.classList.add("container");
+
+    // we need a row so that it all bends around and handles different viewports well
+    let row = document.createElement("div");
+    row.classList.add("row", "mt-4"); // adds a top border to the whole row; when rendered, this means just the top bit
+
     for (let film of films) {
-        let li = document.createElement("li");
-        li.textContent = film["title"];
+        let card =  document.createElement("div");
+        card.classList.add("col-6", "col-md-4", "col-lg-3", "mb-4"); // adds breakpoints for different screen sizes and appropriate spacing (mb-4)
 
-        let img = document.createElement("img");
-        img.src = getImageLinkOfFilm(film, POSTER_SIZES[4])
+        let poster = document.createElement("img");
+        poster.src = getImageLinkOfFilm(film, POSTER_SIZES[5])
+        poster.alt = `A poster for ${film["title"]}`;
+        poster.classList.add("img-fluid"); // makes images responsive
 
-        li.appendChild(img);
-        ul.appendChild(li);
+        card.appendChild(poster);
+        row.appendChild(card);
     }
 
-    return ul;
+    posters.appendChild(row);
+
+    return posters;
 }
 
 async function updatePage() {
-    let json = await getPopularFilms();
+    let json = await getUpcomingFilms();
     let films = json["results"];
 
-    let list = getListOfFilms(films);
+    let list = createListOfFilms(films);
 
     let body = document.querySelector("body");
     body.appendChild(list);
@@ -69,6 +88,6 @@ async function main() {
 }
 
 console.log("loaded")
-document.addEventListener("DOMContentLoaded", updatePage);
+document.addEventListener("DOMContentLoaded", main);
 
 // Should be environmental, so minimal calls if at all possible, very efficient code
