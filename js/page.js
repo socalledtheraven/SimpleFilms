@@ -1,47 +1,5 @@
-import "./secrets";
-import {API_KEY} from "./secrets";
-
-let BASE_URL;
-// should let you get the different sizes by simply changing array index
-let POSTER_SIZES;
-
-async function getJSON(url) {
-    // gets the HTML and document object of a url
-    let response = await fetch(url);
-
-    let navPageHTML = await response.text();
-
-    // this is standard parsing
-    return JSON.parse(navPageHTML);
-}
-
-async function getPopularFilms() {
-    return await getJSON(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`);
-}
-
-async function getNowPlayingFilms() {
-    return await getJSON(`https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`);
-}
-
-async function getUpcomingFilms() {
-    return await getJSON(`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}`);
-}
-
-function getImageLinkOfFilm(film, size_index = 6) {
-    // checks that it's a valid size, just in case I pass the wrong thing in
-    if (0 < size_index < POSTER_SIZES.length) {
-        let urlFrag = film["poster_path"];
-        return BASE_URL + size_index + urlFrag;
-    } else {
-        throw new Error("size " + size_index + " invalid");
-    }
-}
-
-async function getImageAPIData() {
-    // gets the data about what image sizes are available and the correct url to use
-    let json = await getJSON(`https://api.themoviedb.org/3/configuration?api_key=${API_KEY}`);
-    return json["images"];
-}
+import {getImageLinkOfFilm, getUpcomingFilms} from "./tmdb_data";
+import {POSTER_SIZES, setSessionConstants} from "./utilities";
 
 function createFilmPosterCards(films) {
     // creates the nodes for the films themselves
@@ -100,17 +58,16 @@ async function updatePage() {
 }
 
 async function main() {
-    // sets global constants for the rest of the program
-    let imageData = await getImageAPIData();
-    BASE_URL = imageData["secure_base_url"];
-    POSTER_SIZES = imageData["poster_sizes"];
-
+    await setSessionConstants();
     await updatePage();
 }
 
 console.log("loaded")
 document.addEventListener("DOMContentLoaded", main);
 
-// Should be environmental, so minimal calls if at all possible, very efficient code
-// progressive enhancement on all pages where possible
-//
+// !TODO: Should be environmental, so minimal calls if at all possible (https://developer.themoviedb.org/docs/append-to-response), very efficient code
+// !TODO: progressive enhancement on all pages
+// !TODO: incremental search: https://blog.codinghorror.com/search-if-it-isnt-incremental-its-excremental/
+//        add event for listening to the keyboard presses and wait for a break in the timing
+// !TODO: save movie page data in localStorage as cache with ID as key - data limit - save with reverse queue to keep only most recent requests
+//        https://developer.themoviedb.org/docs/append-to-response
