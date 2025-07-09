@@ -1,4 +1,8 @@
-import {getGenreData, getImageAPIData} from "./tmdb_data";
+import {getGenreData, getImageAPIData} from "./tmdb_data.js";
+
+export let BASE_URL;
+export let POSTER_SIZES;
+export let GENRE_DATA;
 
 export async function getJSON(url) {
     // gets the HTML and document object of a url
@@ -13,11 +17,26 @@ export async function getJSON(url) {
 export async function setSessionConstants() {
     // sets global constants for the rest of the program
     let imageData = await getImageAPIData();
-    export const BASE_URL = imageData["secure_base_url"];
+    BASE_URL = imageData["secure_base_url"];
 
     // should let you get the different sizes by simply changing array index
-    export const POSTER_SIZES = imageData["poster_sizes"];
+    POSTER_SIZES = imageData["poster_sizes"];
 
-    export const GENRE_DATA = await getGenreData();
+    GENRE_DATA = await getGenreData();
+}
 
+export function debounce(func, delay) {
+    let timeoutId;
+
+    return function(...args) {
+        // Clear the previous timeout if it exists
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+
+        // Set a new timeout
+        timeoutId = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
 }

@@ -50,6 +50,22 @@ async function main() {
     nowPlayingButton.onclick = async () => {
         await updateForFilms(getNowPlayingFilms);
     }
+
+    const debouncedSearch = debounce(async (query) => {
+        // If the search box is empty, don't do a search.
+        if (!query) {
+            return;
+        }
+
+        await updateForFilms(getSearchData, query);
+    }, 700);
+
+    let searchBox = document.querySelector("#searchBox");
+    searchBox.addEventListener('input', (event) => {
+        const query = event.target.value;
+        console.log(query);
+        debouncedSearch(query);
+    });
 }
 
 console.log("loaded")
