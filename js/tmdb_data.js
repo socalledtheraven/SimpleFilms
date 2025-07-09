@@ -1,5 +1,5 @@
-import {BASE_URL, getJSON, POSTER_SIZES} from "./utilities";
-import {API_KEY} from "./secrets";
+import {BASE_URL, getJSON, POSTER_SIZES} from "./utilities.js";
+import {API_KEY} from "./secrets.js";
 
 export async function getPopularFilms() {
     return await getJSON(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`);
@@ -25,6 +25,10 @@ export async function getGenreData() {
     return new Map(
         json["genres"].map(genre => [genre.id, genre.name])
     )
+}
+
+export async function getSearchData(query) {
+    return await getJSON(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&include_adult=true&language=en-GB&page=1&api_key=${API_KEY}`)
 }
 
 export async function getFilmDetails(film_id) {
