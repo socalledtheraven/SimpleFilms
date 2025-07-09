@@ -32,40 +32,63 @@ async function updateForFilms(func, ...args) {
     updateFilmCardDetails(films);
 }
 
-async function main() {
-    await setSessionConstants();
-    await updateForFilms(getUpcomingFilms);
+function activateButton(newButton) {
+    let buttons = document.querySelectorAll("button.btn.btn-primary.link-light");
+    buttons.forEach(button => {
+        button.classList.remove("active");
+    });
 
+    if (newButton) {
+        buttons.forEach(button => {
+            button.classList.remove("prev-active");
+        });
+
+        newButton.classList.add("active", "prev-active");
+    }
+}
+
+async function main() {
     let upcomingButton = document.querySelector("#upcomingButton");
     upcomingButton.onclick = async () => {
+        activateButton(upcomingButton);
         await updateForFilms(getUpcomingFilms);
     }
 
     let popularButton = document.querySelector("#popularButton");
     popularButton.onclick = async () => {
+        activateButton(popularButton);
         await updateForFilms(getPopularFilms);
     }
 
     let nowPlayingButton = document.querySelector("#nowPlayingButton");
     nowPlayingButton.onclick = async () => {
+        activateButton(nowPlayingButton);
         await updateForFilms(getNowPlayingFilms);
     }
 
     const debouncedSearch = debounce(async (query) => {
         // If the search box is empty, don't do a search.
         if (!query) {
+            let prevButton = document.querySelector(".prev-active");
+            await prevButton.onclick();
             return;
         }
 
+        activateButton();
         await updateForFilms(getSearchData, query);
     }, 700);
 
     let searchBox = document.querySelector("#searchBox");
     searchBox.addEventListener('input', (event) => {
         const query = event.target.value;
-        console.log(query);
         debouncedSearch(query);
     });
+
+    // executions
+    await setSessionConstants();
+
+    activateButton(upcomingButton);
+    await updateForFilms(getUpcomingFilms);
 }
 
 console.log("loaded")
