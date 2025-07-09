@@ -37,6 +37,4 @@ div.card-img-overlay {
 
 .card {
     background: linear-gradient(113deg, #01b4e4 0%, #90cea1 100%);
-    width: 800px;
-    aspect-ratio: 2/3;
 }
