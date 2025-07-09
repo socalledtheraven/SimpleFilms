@@ -1,65 +1,55 @@
-import {getImageLinkOfFilm, getUpcomingFilms} from "./tmdb_data";
-import {POSTER_SIZES, setSessionConstants} from "./utilities";
+import {getImageLinkOfFilm, getNowPlayingFilms, getPopularFilms, getSearchData, getUpcomingFilms} from "./tmdb_data.js";
+import {debounce, POSTER_SIZES, setSessionConstants} from "./utilities.js";
 
-function createFilmPosterCards(films) {
-    // creates the nodes for the films themselves
-    let posters = document.createElement("section");
-    posters.classList.add("container");
+function updateFilmCardDetails(films) {
+    let posters = document.querySelectorAll("img");
+    let titles = document.querySelectorAll("h4");
+    let releaseDates = document.querySelectorAll(".release-date");
+    let ratings = document.querySelectorAll(".rating");
 
-    // we need a row so that it all bends around and handles different viewports well
-    let row = document.createElement("row");
-    row.classList.add("row", "mt-4"); // adds a top border to the whole row; when rendered, this means just the top bit
+    for (let i = 0; i < Object.keys(films).length; i++) {
+        let film = films[i];
 
-    for (let film of films) {
-        let column =  document.createElement("article");
-        column.classList.add("col-6", "col-md-4", "col-lg-3", "mb-4"); // adds breakpoints for different screen sizes and appropriate spacing (mb-4)
-
-        let card = document.createElement("div");
-        card.classList.add("card");
-
-        let poster = document.createElement("img");
+        let poster = posters[i];
         poster.src = getImageLinkOfFilm(film, POSTER_SIZES[5])
         poster.alt = `A poster for ${film["title"]}`;
-        poster.classList.add("card-img-top", "img-fluid"); // makes images responsive
 
-        let overlay = document.createElement("div");
-        overlay.classList.add("card-img-overlay");
-
-        let title = document.createElement("h5");
-        title.classList.add("card-title", "bg-dark", "text-white");
+        let title = titles[i];
         title.textContent = film["title"];
 
-        let release = document.createElement("p");
-        release.classList.add("card-text", "bg-dark", "text-white");
+        let release = releaseDates[i];
         release.textContent = film["release_date"];
 
-        overlay.appendChild(title);
-        overlay.appendChild(release);
-
-        card.appendChild(poster);
-        card.appendChild(overlay);
-        column.appendChild(card);
-        row.appendChild(column);
+        let rating = ratings[i];
+        rating.textContent = (Math.round((film["vote_average"] + Number.EPSILON) * 100) / 100).toString();
     }
-
-    posters.appendChild(row);
-
-    return posters;
 }
 
-async function updatePage() {
-    let json = await getUpcomingFilms();
+async function updateForFilms(func, ...args) {
+    let json = await func.apply(this, args);
     let films = json["results"];
 
-    let list = createFilmPosterCards(films);
-
-    let body = document.querySelector("body");
-    body.appendChild(list);
+    updateFilmCardDetails(films);
 }
 
 async function main() {
     await setSessionConstants();
-    await updatePage();
+    await updateForFilms(getUpcomingFilms);
+
+    let upcomingButton = document.querySelector("#upcomingButton");
+    upcomingButton.onclick = async () => {
+        await updateForFilms(getUpcomingFilms);
+    }
+
+    let popularButton = document.querySelector("#popularButton");
+    popularButton.onclick = async () => {
+        await updateForFilms(getPopularFilms);
+    }
+
+    let nowPlayingButton = document.querySelector("#nowPlayingButton");
+    nowPlayingButton.onclick = async () => {
+        await updateForFilms(getNowPlayingFilms);
+    }
 }
 
 console.log("loaded")
