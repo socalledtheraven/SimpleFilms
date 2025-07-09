@@ -11,7 +11,11 @@ function updateFilmCardDetails(films) {
         let film = films[i];
 
         let poster = posters[i];
-        poster.src = getImageLinkOfFilm(film, POSTER_SIZES[5])
+        if (film["poster_path"]) {
+            poster.src = getImageLinkOfFilm(film["poster_path"], POSTER_SIZES[5])
+        } else {
+            poster.src = "placeholder.png";
+        }
         poster.alt = `A poster for ${film["title"]}`;
 
         let title = titles[i];
@@ -21,7 +25,7 @@ function updateFilmCardDetails(films) {
         release.textContent = film["release_date"];
 
         let rating = ratings[i];
-        rating.textContent = (Math.round((film["vote_average"] + Number.EPSILON) * 100) / 100).toString();
+        rating.textContent = film["vote_average"].toFixed(2);
     }
 }
 
@@ -79,9 +83,16 @@ async function main() {
     }, 700);
 
     let searchBox = document.querySelector("#searchBox");
-    searchBox.addEventListener('input', (event) => {
+    searchBox.addEventListener("input", (event) => {
         const query = event.target.value;
         debouncedSearch(query);
+    });
+    // a backup for whenever the <Enter> key is pressed
+    searchBox.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            const query = event.target.value;
+            debouncedSearch(query);
+        }
     });
 
     // executions
@@ -96,7 +107,5 @@ document.addEventListener("DOMContentLoaded", main);
 
 // !TODO: Should be environmental, so minimal calls if at all possible (https://developer.themoviedb.org/docs/append-to-response), very efficient code
 // !TODO: progressive enhancement on all pages
-// !TODO: incremental search: https://blog.codinghorror.com/search-if-it-isnt-incremental-its-excremental/
-//        add event for listening to the keyboard presses and wait for a break in the timing
 // !TODO: save movie page data in localStorage as cache with ID as key - data limit - save with reverse queue to keep only most recent requests
 //        https://developer.themoviedb.org/docs/append-to-response
