@@ -5,7 +5,7 @@ export async function getPopularFilms() {
     return await getData("popular", `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`);
 }
 
-export async function getNowPlayingFilms() {
+export async function getFilmsPlayingNow() {
     return await getData("nowPlaying", `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`);
 }
 

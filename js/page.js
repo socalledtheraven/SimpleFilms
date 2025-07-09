@@ -1,4 +1,4 @@
-import {getImageLinkOfFilm, getNowPlayingFilms, getPopularFilms, getSearchData, getUpcomingFilms} from "./tmdb_data.js";
+import {getImageLinkOfFilm, getFilmsPlayingNow, getPopularFilms, getSearchData, getUpcomingFilms} from "./tmdb_data.js";
 import {debounce, POSTER_SIZES, setSessionConstants} from "./utilities.js";
 
 function updateFilmCardDetails(films) {
@@ -67,7 +67,7 @@ async function main() {
     let nowPlayingButton = document.querySelector("#nowPlayingButton");
     nowPlayingButton.onclick = async () => {
         activateButton(nowPlayingButton);
-        await updateForFilms(getNowPlayingFilms);
+        await updateForFilms(getFilmsPlayingNow);
     }
 
     const debouncedSearch = debounce(async (query) => {
@@ -98,8 +98,8 @@ async function main() {
     // executions
     await setSessionConstants();
 
-    activateButton(upcomingButton);
-    await updateForFilms(getUpcomingFilms);
+    activateButton(nowPlayingButton);
+    await updateForFilms(getFilmsPlayingNow);
 }
 
 console.log("loaded")
