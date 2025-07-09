@@ -1,15 +1,375 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>SimpleFilms</title>
-    <script src="../js/page.js"></script>
+        <title>SimpleFilms</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
-</head>
-<body>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+    </head>
+    <body>
+        <header>
+            <div class="headerBars">
+                <h1>SimpleFilms</h1>
+            </div>
+            <div class="headerBars">
+                <label for="searchBox">Enter a search query:</label>
+                <input type="search" placeholder="Search..." id="searchBox">
+            </div>
+            <div class="headerBars">
+                <button id="upcomingButton" onclick="updateForUpcoming()">Upcoming</button>
+                <button id="popularButton" onclick="updateForPopular()">Popular</button>
+                <button id="nowPlayingButton" onclick="updateForNowPlaying()">Now Playing</button>
+            </div>
+        </header>
+        <main>
+            <!-- we need a row so that it all bends around and handles different viewports well -->
+            <section class="row mt-4"> <!-- `mt-4` adds a top border to the whole row; when rendered, this means just the top bit -->
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-7 col-md-5 col-lg-3 col-xl-3 col-xxl-3 offset-md-0 mb-4"> <!-- adds breakpoints for different screen sizes and appropriate spacing (mb-4) -->
+                    <div class="card rounded-4 position-relative overflow-hidden">
+                        <img class="img-fluid card-img w-100 d-block rounded-4"/>
+                        <div class="bg-body-secondary bg-opacity-75 position-absolute start-0 bottom-0 end-0 card-caption">
+                            <section class="d-flex justify-content-between ms-1 me-1">
+                                <span class="release-date fs-5">2025</span>
+                                <span class="fs-5 d-flex align-items-center rating">
+                                    7.1
+                                    <i class="fas fa-star text-success ms-1"></i>
+                                </span>
+                            </section>
+                            <h4 class="fs-5 text-center mb-1">
+                                <strong class="fs-5 text-center">Fantastic Four: First Steps</strong>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
 
-</body>
+        <script src="../js/page.js" type="module"></script>
+    </body>
 </html>

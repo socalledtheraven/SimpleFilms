@@ -1,0 +1,42 @@
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.headerBars {
+    gap: 10px;
+}
+
+h1 {
+    background: -webkit-linear-gradient(0deg, #01b4e4, #90cea1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
+div:not(.card-caption) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    border-radius: 20px;
+}
+
+div.card-img-overlay {
+    background: #737373;
+    opacity: 75%;
+}
+
+.fs-5 {
+    font-size: 13px;
+}
+
+.card {
+    background: linear-gradient(113deg, #01b4e4 0%, #90cea1 100%);
+    width: 800px;
+    aspect-ratio: 2/3;
+}
