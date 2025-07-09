@@ -4,14 +4,32 @@ export let BASE_URL;
 export let POSTER_SIZES;
 export let GENRE_DATA;
 
-export async function getJSON(url) {
-    // gets the HTML and document object of a url
-    let response = await fetch(url);
+export async function getData(key, url) {
+    let cached = localStorage.getItem(key);
 
-    let navPageHTML = await response.text();
+    let json;
+    // sends the cached version if it exists, and it's been less than an hour since it was created
+    if (cached && JSON.parse(cached)["time"] + 3_600_000 > Date.now()) {
+        console.log("loading from cache")
+
+        json = cached;
+    } else {
+        console.log("loading from hot")
+        // gets the HTML and document object of a url
+        let response = await fetch(url);
+
+        let jsonSource = await response.text();
+
+        let temp = JSON.parse(jsonSource);
+        temp["time"] = Date.now()
+
+        temp = JSON.stringify(temp);
+        localStorage.setItem(key, temp);
+        json = temp;
+    }
 
     // this is standard parsing
-    return JSON.parse(navPageHTML);
+    return JSON.parse(json);
 }
 
 export async function setSessionConstants() {
