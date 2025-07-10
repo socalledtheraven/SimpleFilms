@@ -106,6 +106,9 @@ console.log("loaded")
 document.addEventListener("DOMContentLoaded", main);
 
 // !TODO: Should be environmental, so minimal calls if at all possible (https://developer.themoviedb.org/docs/append-to-response), very efficient code
-// !TODO: progressive enhancement on all pages
 // !TODO: save movie page data in localStorage as cache with ID as key - data limit - save with reverse queue to keep only most recent requests
 //        https://developer.themoviedb.org/docs/append-to-response
+// !TODO: detect scrolls and load more pages of results
+// !TODO: handle less than 20 results for searches: "dungeons and dragons"
+// !TODO: a little popup on the search page with details from search api leading to big page
+//        call the api for the details as soon as they open the api and then the big page will
