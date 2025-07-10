@@ -18,13 +18,13 @@ function updateFilmCardDetails(films) {
         }
         poster.alt = `A poster for ${film["title"]}`;
 
-        let title = titles[i];
+        let title = titles[i].children[0]; // the <strong> is a child of the <h4>
         title.textContent = film["title"];
 
         let release = releaseDates[i];
-        release.textContent = film["release_date"];
+        release.textContent = film["release_date"].split("-").reverse().join("/"); // formats the datestring in the correct manner without need for a library
 
-        let rating = ratings[i];
+        let rating = ratings[i].firstChild; // we use firstChild instead, so we get the text node instead of the first element
         rating.textContent = film["vote_average"].toFixed(2);
     }
 }
