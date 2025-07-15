@@ -1,16 +1,16 @@
 import {BASE_URL, getData, POSTER_SIZES} from "./utilities.js";
 import {API_KEY} from "./secrets.js";
 
-export async function getPopularFilms() {
-    return await getData("popular", `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`);
+export async function getPopularFilms(page = 1) {
+    return await getData("popular", `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&page=${page}`);
 }
 
-export async function getFilmsPlayingNow() {
-    return await getData("nowPlaying", `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`);
+export async function getFilmsPlayingNow(page = 1) {
+    return await getData("nowPlaying", `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&page=${page}`);
 }
 
-export async function getUpcomingFilms() {
-    return await getData("upcoming", `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}`);
+export async function getUpcomingFilms(page = 1) {
+    return await getData("upcoming", `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&page=${page}`);
 }
 
 export async function getImageAPIData() {
@@ -27,8 +27,8 @@ export async function getGenreData() {
     )
 }
 
-export async function getSearchData(query) {
-    return await getData(`search_${encodeURIComponent(query)}`, `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&include_adult=true&language=en-GB&page=1&api_key=${API_KEY}`)
+export async function getSearchData(query, page = 1) {
+    return await getData(`search_${encodeURIComponent(query)}`, `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}&include_adult=true&language=en-GB&page=1&api_key=${API_KEY}&page=${page}`)
 }
 
 export async function getFilmDetails(film_id) {

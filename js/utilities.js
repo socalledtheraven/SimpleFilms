@@ -4,12 +4,14 @@ export let BASE_URL;
 export let POSTER_SIZES;
 export let GENRE_DATA;
 
+const CACHE_INVALID_TIME = 60 * (60 * 1000);
+
 export async function getData(key, url) {
     let cached = localStorage.getItem(key);
 
     let json;
     // sends the cached version if it exists, and it's been less than an hour since it was created
-    if (cached && JSON.parse(cached)["time"] + 3_600_000 > Date.now()) {
+    if (cached && ((JSON.parse(cached)["time"] + CACHE_INVALID_TIME) > Date.now())) {
         console.log("loading from cache")
 
         json = cached;
