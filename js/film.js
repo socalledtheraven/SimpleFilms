@@ -1,16 +1,17 @@
-import {getFilmDetails, getImageLinkOfFilm} from "../../Website Project - Copy/js/tmdb_data.js";
-import {POSTER_SIZES} from "../../Website Project - Copy/js/utilities.js";
+import {getFilmDetails, getImageLinkOfFilm} from "../js/tmdb_data.js";
+import {POSTER_SIZES, setSessionConstants} from "../js/utilities.js";
 
 function getFilmID() {
+    return 846422;
     return window.location.href.split("?id=").pop();
 }
 
 function updatePageElements(data) {
     let metaTitle = document.querySelector("title");
-    metaTitle.text = data["title"];
+    metaTitle.textContent = "SimpleFilms - " + data["title"];
 
     let title = document.querySelector("#title");
-    title.text = data["title"];
+    title.textContent = data["title"];
 
     let poster = document.querySelector("#poster")
     if (data["poster_path"]) {
@@ -21,23 +22,29 @@ function updatePageElements(data) {
     poster.alt = `A poster for ${data["title"]}`;
 
     let trailer = document.querySelector("#trailer");
-    let embed = getEmbed(data);
+    let urlFrag = data["videos"]["results"].filter(obj => {
+        return obj["type"] === "Trailer";
+    })[0]["key"];
+    trailer.src = "https://www.youtube.com/embed/" + urlFrag;
 
-    let genres = createPills(data["genres"]);
-
-    let rating = document.querySelector("#rating");
-
-    let keywords = createPills(data["keywords"]);
+    // let genres = createPills(data["genres"]);
+    //
+    // let rating = document.querySelector("#rating");
+    //
+    // let keywords = createPills(data["keywords"]);
 
 
     let description = document.querySelector("#description");
-    description.text = data["description"];
+    description.textContent = data["overview"];
 }
 
-function main() {
+async function main() {
     let id = getFilmID();
 
-    let data = getFilmDetails(id);
+    await setSessionConstants();
+
+    let data = await getFilmDetails(id);
+    console.log(data);
 
     updatePageElements(data);
 }

@@ -178,8 +178,6 @@ document.addEventListener("DOMContentLoaded", main);
 // !TODO:   save movie page data in localStorage as cache with ID as key - data limit - save with reverse queue to keep only most recent requests
 //              https://developer.themoviedb.org/docs/append-to-response
 // !TODO:   detect scrolls and load more pages of results
-// !TODO:   a little popup on the search page with details from search api leading to big page
-//              call the api for the details as soon as they open the api and then the big page will
 // !TODO:   handle zero results for search!
 // !TODO:   error handling
-// !TODO:   fix secrets.js being pushed
+// !TODO:   run lighthouse on this thing

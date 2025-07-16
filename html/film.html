@@ -38,19 +38,20 @@
                     <use href="#star"/>
                 </svg>
 
-                <h2 class="mb-4 text-center">The Fantastic Four: First Steps (2025)</h2>
+                <h2 class="mb-4 text-center" id="title"></h2>
 
                 <div class="row">
                     <!-- Left Column: Movie Poster -->
-                    <div id="movie-poster-section" class="col-lg-4 col-md-5 mb-4">
-                        <img src="https://www.themoviedb.org/t/p/w1280/wqfu3bPLJaEWJVk3QOm0rKhxf1A.jpg" class="img-fluid rounded-3" alt="Elio Movie Poster">
+                    <div id="movie-poster-section" class="col-md-6 mb-4">
+                        <img id="poster" src="" class="img-fluid rounded-3" alt="Movie Poster">
                     </div>
 
                     <!-- Right Column: Trailer and Cast -->
-                    <div id="movie-info-section" class="col-lg-8 col-md-7">
+                    <div id="movie-info-section" class="col-md-6">
                         <!-- Trailer Placeholder -->
-                        <iframe class="placeholder-gradient w-100 mb-4" height="450" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" allowfullscreen></iframe>
-
+                        <div id="trailer-section" class="ratio ratio-16x9 mb-4">
+                            <iframe id="trailer" class="rounded-3" src="" title="YouTube video player" allowfullscreen></iframe>
+                        </div>
                         <!-- Cast Section -->
                         <div id="cast-section">
                             <h3 class="h5">Cast</h3>
@@ -75,11 +76,7 @@
                                 <div class="cast-member placeholder-gradient"></div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="row mt-4">
-                    <div class="col-12">
                         <!-- Genres Section -->
                         <div id="genres-section" class="d-flex align-items-center justify-content-between mb-4">
                             <div>
@@ -90,7 +87,7 @@
                             </div>
                             <div class="d-flex align-items-center">
                                 <span class="h1 me-2">7.1</span>
-
+                                <svg width="32" height="32"><use href="#star"/></svg>
                             </div>
                         </div>
 
@@ -103,19 +100,21 @@
                             <span class="badge badge-custom p-2">genre 1</span>
                             <span class="badge badge-custom p-2">genre 1</span>
                         </div>
+                    </div>
+                </div>
 
+                <div class="row mt-4">
+                    <div class="col-12">
                         <!-- Description Section -->
-                        <div id="description-section">
-                            <p class="text-white-50">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in turpis volutpat, consectetur elit at, vehicula metus. Phasellus lacinia malesuada dolor nec pharetra. Praesent metus purus, euismod id nunc id, scelerisque aliquam lorem. Fusce et ullamcorper velit. Curabitur hendrerit condimentum mi nec pulvinar. Quisque id odio ut diam venenatis tincidunt. Maecenas rutrum nisi quis porta sodales. Morbi tortor risus, sollicitudin quis viverra ultricies, ornare eget tellus. Etiam non ullamcorper eros, et maximus ex.
-                            </p>
-                        </div>
+                        <p id="description">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in turpis volutpat, consectetur elit at, vehicula metus. Phasellus lacinia malesuada dolor nec pharetra. Praesent metus purus, euismod id nunc id, scelerisque aliquam lorem. Fusce et ullamcorper velit. Curabitur hendrerit condimentum mi nec pulvinar. Quisque id odio ut diam venenatis tincidunt. Maecenas rutrum nisi quis porta sodales. Morbi tortor risus, sollicitudin quis viverra ultricies, ornare eget tellus. Etiam non ullamcorper eros, et maximus ex.
+                        </p>
                     </div>
                 </div>
             </div>
         </main>
 
 
-        <script src="../../Website%20Project%20-%20Copy/js/film.js" type="module"></script>
+        <script src="../js/film.js" type="module"></script>
     </body>
 </html>

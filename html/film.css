@@ -26,7 +26,6 @@ body {
     flex-wrap: nowrap;
     overflow-x: auto;
     padding-bottom: 15px; /* Add some space for the scrollbar */
-    scrollbar-width: none; /* Firefox */
 }
 
 .cast-member {
