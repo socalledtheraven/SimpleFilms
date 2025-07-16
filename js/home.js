@@ -1,14 +1,18 @@
-import {getImageLinkOfFilm, getFilmsPlayingNow, getPopularFilms, getSearchData, getUpcomingFilms} from "./tmdb_data.js";
-import {debounce, POSTER_SIZES, setSessionConstants} from "./utilities.js";
+import {getImageLinkOfFilm, getFilmsPlayingNow, getPopularFilms, getSearchData, getUpcomingFilms} from "../js/tmdb_data.js";
+import {debounce, POSTER_SIZES, setSessionConstants} from "../js/utilities.js";
 
 let CURRENT_FUNCTION;
 
 function addNewFilmCards(films) {
+    let row = document.querySelector("section.row");
+    row.hidden = true;
+
     for (let i = 0; i < Object.keys(films).length; i++) {
         let film = films[i];
 
-        let col = document.createElement("div");
+        let col = document.createElement("a");
         col.classList.add("col-6", "col-md-4", "col-lg-3", "mb-4", "offset-md-0");
+        col.href = `film.html?id=${film["id"]}`
 
         let card = document.createElement("div");
         card.classList.add("card", "rounded-4", "position-relative", "overflow-hidden");
@@ -64,9 +68,10 @@ function addNewFilmCards(films) {
 
         col.appendChild(card);
 
-        let row = document.querySelector("section.row");
         row.appendChild(col);
     }
+
+    row.hidden = false;
 }
 
 function removeExistingFilmCards() {
@@ -173,7 +178,8 @@ document.addEventListener("DOMContentLoaded", main);
 // !TODO:   save movie page data in localStorage as cache with ID as key - data limit - save with reverse queue to keep only most recent requests
 //              https://developer.themoviedb.org/docs/append-to-response
 // !TODO:   detect scrolls and load more pages of results
-// !TODO:   use stefano's suggestion and only add the cards to the page after they're all already made
-//              lighthouse doesn't like the repainting
 // !TODO:   a little popup on the search page with details from search api leading to big page
 //              call the api for the details as soon as they open the api and then the big page will
+// !TODO:   handle zero results for search!
+// !TODO:   error handling
+// !TODO:   fix secrets.js being pushed

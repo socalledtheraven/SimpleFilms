@@ -1,0 +1,16 @@
+.fs-5 {
+    font-size: 13px;
+}
+
+.card {
+    background: linear-gradient(113deg, var(--bs-primary) 0%, var(--bs-secondary) 100%);
+}
+
+a:hover {
+    transition: 0.25s;
+    transform: scale(1.05);
+}
+
+a {
+    transition: 0.25s;
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>SimpleFilms - Film</title>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="base.css">
+        <link rel="stylesheet" href="film.css">
+    </head>
+    <body>
+        <header>
+            <div class="headerBars">
+                <h1>SimpleFilms</h1>
+            </div>
+            <div class="headerBars">
+                <label for="searchBox">Enter a search query:</label>
+                <input type="search" placeholder="Search..." id="searchBox">
+            </div>
+            <div class="btn-group d-flex container" role="group">
+                <button id="nowPlayingButton" class="btn btn-primary link-light" type="button">Now Playing</button>
+                <button id="popularButton" class="btn btn-primary link-light" type="button">Popular</button>
+                <button id="upcomingButton" class="btn btn-primary link-light" type="button">Upcoming</button>
+            </div>
+        </header>
+
+        <main>
+            <div id="movie-details-section" class="container py-4">
+                <svg style="display: none">
+                    <defs>
+                        <symbol id="star" fill="#FFC107" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                        </symbol>
+                    </defs>
+                    <!-- to make the star.svg file also usable as image -->
+                    <use href="#star"/>
+                </svg>
+
+                <h2 class="mb-4 text-center">The Fantastic Four: First Steps (2025)</h2>
+
+                <div class="row">
+                    <!-- Left Column: Movie Poster -->
+                    <div id="movie-poster-section" class="col-lg-4 col-md-5 mb-4">
+                        <img src="https://www.themoviedb.org/t/p/w1280/wqfu3bPLJaEWJVk3QOm0rKhxf1A.jpg" class="img-fluid rounded-3" alt="Elio Movie Poster">
+                    </div>
+
+                    <!-- Right Column: Trailer and Cast -->
+                    <div id="movie-info-section" class="col-lg-8 col-md-7">
+                        <!-- Trailer Placeholder -->
+                        <iframe class="placeholder-gradient w-100 mb-4" height="450" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" allowfullscreen></iframe>
+
+                        <!-- Cast Section -->
+                        <div id="cast-section">
+                            <h3 class="h5">Cast</h3>
+                            <div id="cast-list">
+                                <!-- Cast Member Card -->
+                                <div class="cast-member placeholder-gradient"></div>
+                                <!-- Cast Member Card -->
+                                <div class="cast-member placeholder-gradient"></div>
+                                <!-- Cast Member Card -->
+                                <div class="cast-member placeholder-gradient"></div>
+                                <!-- Cast Member Card -->
+                                <div class="cast-member placeholder-gradient"></div>
+                                <!-- Cast Member Card -->
+                                <div class="cast-member placeholder-gradient"></div>
+                                <!-- Cast Member Card -->
+                                <div class="cast-member placeholder-gradient"></div>
+                                <!-- Cast Member Card -->
+                                <div class="cast-member placeholder-gradient"></div>
+                                <!-- Cast Member Card -->
+                                <div class="cast-member placeholder-gradient"></div>
+                                <!-- Cast Member Card -->
+                                <div class="cast-member placeholder-gradient"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <!-- Genres Section -->
+                        <div id="genres-section" class="d-flex align-items-center justify-content-between mb-4">
+                            <div>
+                                <h3 class="h5">Genres</h3>
+                                <span class="badge badge-custom p-2">genre 1</span>
+                                <span class="badge badge-custom p-2">genre 1</span>
+                                <span class="badge badge-custom p-2">genre 1</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="h1 me-2">7.1</span>
+
+                            </div>
+                        </div>
+
+                        <!-- Keywords Section -->
+                        <div id="keywords-section" class="mb-4">
+                            <h3 class="h5">Keywords</h3>
+                            <span class="badge badge-custom p-2">genre 1</span>
+                            <span class="badge badge-custom p-2">genre 1</span>
+                            <span class="badge badge-custom p-2">genre 1</span>
+                            <span class="badge badge-custom p-2">genre 1</span>
+                            <span class="badge badge-custom p-2">genre 1</span>
+                        </div>
+
+                        <!-- Description Section -->
+                        <div id="description-section">
+                            <p class="text-white-50">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in turpis volutpat, consectetur elit at, vehicula metus. Phasellus lacinia malesuada dolor nec pharetra. Praesent metus purus, euismod id nunc id, scelerisque aliquam lorem. Fusce et ullamcorper velit. Curabitur hendrerit condimentum mi nec pulvinar. Quisque id odio ut diam venenatis tincidunt. Maecenas rutrum nisi quis porta sodales. Morbi tortor risus, sollicitudin quis viverra ultricies, ornare eget tellus. Etiam non ullamcorper eros, et maximus ex.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <script src="../../Website%20Project%20-%20Copy/js/film.js" type="module"></script>
+    </body>
+</html>

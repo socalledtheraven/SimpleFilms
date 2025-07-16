@@ -1,0 +1,35 @@
+body {
+    background-color: #0D253F;
+    --bs-primary: #01b4e4;
+    --bs-secondary: #90cea1;
+}
+
+label {
+    color: var(--bs-light)
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.headerBars {
+    gap: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    background: -webkit-linear-gradient(0deg, var(--bs-primary), var(--bs-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    font-size: 52px;
+}
+
+.btn {
+    border-radius: 20px;
+}
