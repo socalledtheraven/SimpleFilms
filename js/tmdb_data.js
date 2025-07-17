@@ -2,15 +2,15 @@ import {BASE_URL, getData, POSTER_SIZES} from "./utilities.js";
 import {API_KEY} from "./secrets.js";
 
 export async function getPopularFilms(page = 1) {
-    return await getData("popular", `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&page=${page}`);
+    return await getData(`popular_page${page}`, `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&page=${page}`);
 }
 
 export async function getFilmsPlayingNow(page = 1) {
-    return await getData("nowPlaying", `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&page=${page}`);
+    return await getData(`nowPlaying_page${page}`, `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&page=${page}`);
 }
 
 export async function getUpcomingFilms(page = 1) {
-    return await getData("upcoming", `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&page=${page}`);
+    return await getData(`upcoming_page${page}`, `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&page=${page}`);
 }
 
 export async function getImageAPIData() {

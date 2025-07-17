@@ -1,7 +1,14 @@
-import {getImageLinkOfFilm, getFilmsPlayingNow, getPopularFilms, getSearchData, getUpcomingFilms} from "../js/tmdb_data.js";
+import {
+    getFilmsPlayingNow,
+    getImageLinkOfFilm,
+    getPopularFilms,
+    getSearchData,
+    getUpcomingFilms
+} from "../js/tmdb_data.js";
 import {debounce, POSTER_SIZES, setSessionConstants} from "../js/utilities.js";
 
 let CURRENT_FUNCTION;
+let PAGE = 1;
 
 function addNewFilmCards(films) {
     let row = document.querySelector("section.row");
@@ -109,11 +116,14 @@ function handleError(type) {
     container.appendChild(errorElement);
 }
 
-async function updateForFilms(json) {
+async function updateForFilms(json, scrolling) {
     try {
         let films = json["results"];
 
-        removeExistingFilmCards();
+        if (!scrolling) {
+            removeExistingFilmCards();
+        }
+
         addNewFilmCards(films);
     } catch(e) {
         console.log(e);
@@ -136,46 +146,50 @@ function activateButton(newButton) {
     }
 }
 
-async function navButtonAction(type) {
+async function navButtonAction(type, scrolling, page = 1) {
     let json;
     let button;
+    PAGE = page;
 
     switch (type) {
         case "upcoming":
             button = document.querySelector("#upcomingButton");
 
-            json = await getUpcomingFilms(1);
+            json = await getUpcomingFilms(page);
             break;
         case "popular":
             button = document.querySelector("#popularButton");
 
-            json = await getPopularFilms(1);
+            json = await getPopularFilms(page);
             break;
         case "nowPlaying":
             button = document.querySelector("#nowPlayingButton");
 
-            json = await getFilmsPlayingNow(1);
+            json = await getFilmsPlayingNow(page);
             break;
     }
     activateButton(button);
 
-    await updateForFilms(json);
+    await updateForFilms(json, scrolling);
 }
 
 function addButtonClickFunctions() {
     let upcomingButton = document.querySelector("#upcomingButton");
     upcomingButton.onclick = async () => {
-        await navButtonAction("upcoming");
+        CURRENT_FUNCTION = "upcoming"
+        await navButtonAction(CURRENT_FUNCTION, false);
     }
 
     let popularButton = document.querySelector("#popularButton");
     popularButton.onclick = async () => {
-        await navButtonAction("popular");
+        CURRENT_FUNCTION = "popular"
+        await navButtonAction(CURRENT_FUNCTION, false);
     }
 
     let nowPlayingButton = document.querySelector("#nowPlayingButton");
     nowPlayingButton.onclick = async () => {
-        await navButtonAction("nowPlaying");
+        CURRENT_FUNCTION = "nowPlaying"
+        await navButtonAction(CURRENT_FUNCTION, false);
     }
 }
 
@@ -215,30 +229,29 @@ async function main() {
     await setSessionConstants();
 
     addButtonClickFunctions();
-    addSearchBoxListeners();
 
+    addSearchBoxListeners();
     // loads the view based either on url parameter from last time or default
+
     let url = document.location.href;
     if (url.includes("?view=")) {
-        let view = url.split("?view=")[1];
+        CURRENT_FUNCTION = url.split("?view=")[1];
 
-        await navButtonAction(view);
+        await navButtonAction(CURRENT_FUNCTION, false);
     } else {
         // defaults to nowPlaying
-        await navButtonAction("nowPlaying");
+        CURRENT_FUNCTION = "nowPlaying";
+
+        await navButtonAction(CURRENT_FUNCTION, false);
     }
 
-    // window.addEventListener("scroll", async () => {
-    //     if (window.innerHeight + window.scrollY >= document.body.offsetHeight + 50) { // adds a little buffer when getting to the end
-    //         await updateForFilms(async () => {
-    //
-    //             await CURRENT_FUNCTION.apply(this, );
-    //         });
-    //     }
-    // });
+    window.addEventListener("scroll", async () => {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) { // adds a little buffer when getting to the end
+            PAGE += 1;
+            await navButtonAction(CURRENT_FUNCTION, true, PAGE);
+        }
+    });
 }
 
 console.log("loaded")
 document.addEventListener("DOMContentLoaded", main);
-
-// !TODO:   detect scrolls and load more pages of results
