@@ -58,8 +58,8 @@ function addNewFilmCards(films) {
         topLine.appendChild(release)
         topLine.appendChild(rating);
 
-        let title = document.createElement("h4");
-        title.classList.add("text-center", "mb-1")
+        let title = document.createElement("h2");
+        title.classList.add("text-center", "mb-2", "fs-4");
         let titleText = document.createElement("strong");
         titleText.textContent = film["title"];
         title.appendChild(titleText);
@@ -202,4 +202,3 @@ console.log("loaded")
 document.addEventListener("DOMContentLoaded", main);
 
 // !TODO:   detect scrolls and load more pages of results
-// !TODO:   run lighthouse on this thing

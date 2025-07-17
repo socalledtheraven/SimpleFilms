@@ -33,14 +33,15 @@ function createCastCards(data) {
     for (let member of data) {
         let link = document.createElement("a");
         link.href = `https://www.themoviedb.org/person/${member["id"]}-${member["name"].replaceAll(" ", "-")}/movie`;
+        link.textContent = member["name"];
 
         let card = document.createElement("img");
         card.classList.add("cast-member", "rounded-3");
 
         card.src = getImageLinkOfCastMember(member["profile_path"]);
+        card.alt = `A picture of ${member["name"]}`;
 
         link.appendChild(card);
-
         cards.push(link);
     }
 
@@ -50,6 +51,9 @@ function createCastCards(data) {
 function updatePageElements(data) {
     let metaTitle = document.querySelector("title");
     metaTitle.textContent = `SimpleFilms - ${data["title"]}`;
+
+    let metaDescription = document.querySelector("meta[name='description']");
+    metaDescription.content = `The SimpleFilms film viewing website page for ${data["title"]}`
 
     let title = document.querySelector("#title");
     title.textContent = data["title"];
@@ -102,8 +106,4 @@ async function main() {
 console.log("loaded")
 document.addEventListener("DOMContentLoaded", main);
 
-// !TODO: fix what's currently broken and make it look not bad
-// !TODO: make poster bigger
-// !TODO: add links to tmdb for all things i'm not making a page for
-// !TODO: needs to be responsive!
 // !TODO: add functional links back to the homepage

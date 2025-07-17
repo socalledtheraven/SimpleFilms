@@ -31,3 +31,9 @@ body {
     height: 210px;
     margin-right: 1rem;
 }
+
+.cast-member a {
+    color: transparent;
+    font-size: 0;
+    line-height: 0;
+}
