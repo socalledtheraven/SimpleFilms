@@ -9,7 +9,7 @@ function getFilmID() {
 function createPills(items, type) {
     let pills = [];
 
-    if (type === "keywords") {
+    if (type === "keyword") {
         // this one is inexplicably nested further
         items = items["keywords"]
     }
@@ -32,7 +32,7 @@ function createCastCards(data) {
 
     for (let member of data) {
         let link = document.createElement("a");
-        link.href = `https://www.themoviedb.org/person/${member["id"]}-${member["name"].replaceAll(" ", "-")}/movie`;
+        link.href = `https://www.themoviedb.org/person/${member["id"]}-${member["name"].replaceAll(" ", "-")}`;
         link.textContent = member["name"];
 
         let card = document.createElement("img");
@@ -66,30 +66,54 @@ function updatePageElements(data) {
     }
     poster.alt = `A poster for ${data["title"]}`;
 
-    let trailer = document.querySelector("#trailer");
-    let urlFrag = data["videos"]["results"].filter(obj => {
-        return obj["type"] === "Trailer";
-    })[0]["key"];
-    trailer.src = `https://www.youtube.com/embed/${urlFrag}`;
+    try {
+        let description = document.querySelector("#description");
+        description.textContent = data["overview"];
+    } catch (e) {
+        console.log(e.message);
+    }
 
-    let genres = createPills(data["genres"], "genres");
-    let genreSection = document.querySelector("#genresSection").children[0];
-    genreSection.append(...genres);
+    try {
+        let castSection = document.querySelector("#castList");
+        let castData = data["credits"]["cast"];
+        let cast = createCastCards(castData);
+        castSection.append(...cast);
+    } catch (e) {
+        console.log(e.message);
+    }
 
-    let rating = document.querySelector("#rating");
-    rating.textContent = data["vote_average"].toFixed(2);
+    try {
+        let genres = createPills(data["genres"], "genre");
+        let genreSection = document.querySelector("#genresSection").children[0];
+        genreSection.append(...genres);
+    } catch (e) {
+        console.log(e.message);
+    }
 
-    let keywords = createPills(data["keywords"], "keywords");
-    let keywordsSection = document.querySelector("#keywordSection");
-    keywordsSection.append(...keywords);
+    try {
+        let rating = document.querySelector("#rating");
+        rating.textContent = data["vote_average"].toFixed(2);
+    } catch (e) {
+        console.log(e.message);
+    }
 
-    let castSection = document.querySelector("#castList");
-    let castData = data["credits"]["cast"];
-    let cast = createCastCards(castData);
-    castSection.append(...cast);
+    try {
+        let keywords = createPills(data["keywords"], "keyword");
+        let keywordsSection = document.querySelector("#keywordSection");
+        keywordsSection.append(...keywords);
+    } catch (e) {
+        console.log(e.message);
+    }
 
-    let description = document.querySelector("#description");
-    description.textContent = data["overview"];
+    try {
+        let trailer = document.querySelector("#trailer");
+        let urlFrag = data["videos"]["results"].filter(obj => {
+            return obj["type"] === "Trailer";
+        })[0]["key"];
+        trailer.src = `https://www.youtube.com/embed/${urlFrag}`;
+    } catch (e) {
+        console.log(e.message);
+    }
 }
 
 async function main() {
