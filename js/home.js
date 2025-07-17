@@ -109,9 +109,7 @@ function handleError(type) {
     container.appendChild(errorElement);
 }
 
-async function updateForFilms(func, ...args) {
-    CURRENT_FUNCTION = func;
-    let json = await func.apply(this, args);
+async function updateForFilms(json) {
     try {
         let films = json["results"];
 
@@ -138,35 +136,62 @@ function activateButton(newButton) {
     }
 }
 
-async function main() {
+async function navButtonAction(type) {
+    let json;
+    let button;
+
+    switch (type) {
+        case "upcoming":
+            button = document.querySelector("#upcomingButton");
+
+            json = await getUpcomingFilms(1);
+            break;
+        case "popular":
+            button = document.querySelector("#popularButton");
+
+            json = await getPopularFilms(1);
+            break;
+        case "nowPlaying":
+            button = document.querySelector("#nowPlayingButton");
+
+            json = await getFilmsPlayingNow(1);
+            break;
+    }
+    activateButton(button);
+
+    await updateForFilms(json);
+}
+
+function addButtonClickFunctions() {
     let upcomingButton = document.querySelector("#upcomingButton");
     upcomingButton.onclick = async () => {
-        activateButton(upcomingButton);
-        await updateForFilms(getUpcomingFilms, 1)
+        await navButtonAction("upcoming");
     }
 
     let popularButton = document.querySelector("#popularButton");
     popularButton.onclick = async () => {
-        activateButton(popularButton);
-        await updateForFilms(getPopularFilms, 1);
+        await navButtonAction("popular");
     }
 
     let nowPlayingButton = document.querySelector("#nowPlayingButton");
     nowPlayingButton.onclick = async () => {
-        activateButton(nowPlayingButton);
-        await updateForFilms(getFilmsPlayingNow, 1);
+        await navButtonAction("nowPlaying");
     }
+}
 
+function addSearchBoxListeners() {
     const debouncedSearch = debounce(async (query) => {
         // If the search box is empty, don't do a search.
-        if (!query) {
-            let prevButton = document.querySelector(".prev-active");
-            await prevButton.onclick();
-            return;
-        }
+        if (query) {
+            activateButton();
 
-        activateButton();
-        await updateForFilms(getSearchData, query);
+            let json = await getSearchData(query);
+
+            await updateForFilms(json);
+        } else {
+            let prevButton = document.querySelector(".prev-active");
+            await prevButton.click();
+        }
     }, 700);
 
     let searchBox = document.querySelector("#searchBox");
@@ -174,6 +199,7 @@ async function main() {
         const query = event.target.value;
         debouncedSearch(query);
     });
+
     // a backup for whenever the <Enter> key is pressed
     searchBox.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
@@ -181,12 +207,26 @@ async function main() {
             debouncedSearch(query);
         }
     });
+}
 
+async function main() {
     // executions
+
     await setSessionConstants();
 
-    activateButton(nowPlayingButton);
-    await updateForFilms(getFilmsPlayingNow);
+    addButtonClickFunctions();
+    addSearchBoxListeners();
+
+    // loads the view based either on url parameter from last time or default
+    let url = document.location.href;
+    if (url.includes("?view=")) {
+        let view = url.split("?view=")[1];
+
+        await navButtonAction(view);
+    } else {
+        // defaults to nowPlaying
+        await navButtonAction("nowPlaying");
+    }
 
     // window.addEventListener("scroll", async () => {
     //     if (window.innerHeight + window.scrollY >= document.body.offsetHeight + 50) { // adds a little buffer when getting to the end
