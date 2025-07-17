@@ -22,6 +22,11 @@ header {
     align-items: center;
 }
 
+header a {
+    text-decoration: none;
+    color: var(--bs-light);
+}
+
 h1 {
     background: -webkit-linear-gradient(0deg, var(--bs-primary), var(--bs-secondary));
     -webkit-background-clip: text;

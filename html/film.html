@@ -13,7 +13,7 @@
     <body>
         <header>
             <div class="headerBars">
-                <h1>SimpleFilms</h1>
+                <h1><a href="home.html"><strong>SimpleFilms</strong></a></h1>
             </div>
             <div class="headerBars">
                 <label for="searchBox">Enter a search query:</label>
@@ -27,7 +27,7 @@
         </header>
 
         <main>
-            <div id="movie-details-section" class="container py-4">
+            <section id="movie-detailsSection" class="container py-4">
                 <svg style="display: none">
                     <defs>
                         <symbol id="star" fill="#FFC107" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -42,65 +42,43 @@
 
                 <div class="row">
                     <!-- Left Column: Movie Poster -->
-                    <div id="movie-poster-section" class="col-md-6 mb-4">
+                    <section id="movie-posterSection" class="col-md-6 mb-4">
                         <img id="poster" src="" class="img-fluid rounded-3" alt="Movie Poster">
-                    </div>
+                    </section>
 
                     <!-- Right Column: Trailer and Cast -->
-                    <div id="movie-info-section" class="col-md-6">
+                    <section id="movie-infoSection" class="col-md-6">
                         <!-- Trailer Placeholder -->
-                        <div id="trailer-section" class="ratio ratio-16x9 mb-4">
+                        <section id="trailerSection" class="ratio ratio-16x9 mb-4">
                             <iframe id="trailer" class="rounded-3" src="" title="YouTube video player" allowfullscreen></iframe>
-                        </div>
-                        <!-- Cast Section -->
-                        <div id="cast-section">
-                            <h3 class="h5">Cast</h3>
-                            <div id="cast-list">
-                                <!-- Cast Member Card -->
-                                <div class="cast-member placeholder-gradient"></div>
-                                <!-- Cast Member Card -->
-                                <div class="cast-member placeholder-gradient"></div>
-                                <!-- Cast Member Card -->
-                                <div class="cast-member placeholder-gradient"></div>
-                                <!-- Cast Member Card -->
-                                <div class="cast-member placeholder-gradient"></div>
-                                <!-- Cast Member Card -->
-                                <div class="cast-member placeholder-gradient"></div>
-                                <!-- Cast Member Card -->
-                                <div class="cast-member placeholder-gradient"></div>
-                                <!-- Cast Member Card -->
-                                <div class="cast-member placeholder-gradient"></div>
-                                <!-- Cast Member Card -->
-                                <div class="cast-member placeholder-gradient"></div>
-                                <!-- Cast Member Card -->
-                                <div class="cast-member placeholder-gradient"></div>
-                            </div>
-                        </div>
+                        </section>
 
-                        <!-- Genres Section -->
-                        <div id="genres-section" class="d-flex align-items-center justify-content-between mb-4">
-                            <div>
-                                <h3 class="h5">Genres</h3>
-                                <span class="badge badge-custom p-2">genre 1</span>
-                                <span class="badge badge-custom p-2">genre 1</span>
-                                <span class="badge badge-custom p-2">genre 1</span>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <span class="h1 me-2">7.1</span>
+                        <section class="d-flex align-items-center justify-content-between">
+                            <!-- Genres Section -->
+                            <section id="genresSection" class="d-flex align-items-center justify-content-between mb-4">
+                                <div>
+                                    <h3 class="h5">Genres</h3>
+                                </div>
+                            </section>
+
+                            <section id="ratingSection" class="d-flex align-items-center">
+                                <span class="h1 me-2" id="rating">7.1</span>
                                 <svg width="32" height="32"><use href="#star"/></svg>
-                            </div>
-                        </div>
+                            </section>
+                        </section>
 
                         <!-- Keywords Section -->
-                        <div id="keywords-section" class="mb-4">
+                        <section id="keywordSection" class="mb-4">
                             <h3 class="h5">Keywords</h3>
-                            <span class="badge badge-custom p-2">genre 1</span>
-                            <span class="badge badge-custom p-2">genre 1</span>
-                            <span class="badge badge-custom p-2">genre 1</span>
-                            <span class="badge badge-custom p-2">genre 1</span>
-                            <span class="badge badge-custom p-2">genre 1</span>
-                        </div>
-                    </div>
+                        </section>
+
+                        <!-- Cast Section -->
+                        <section id="castSection">
+                            <h3 class="h5">Cast</h3>
+                            <div id="castList">
+                            </div>
+                        </section>
+                    </section>
                 </div>
 
                 <div class="row mt-4">
@@ -111,7 +89,7 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </section>
         </main>
 
 

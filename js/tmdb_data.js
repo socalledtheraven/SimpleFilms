@@ -43,3 +43,7 @@ export function getImageLinkOfFilm(urlFrag, size_index = 6) { // defaults to a r
         throw new Error("size " + size_index + " invalid");
     }
 }
+
+export function getImageLinkOfCastMember(urlFrag) {
+    return BASE_URL + "w185" + urlFrag;
+}
