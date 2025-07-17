@@ -11,7 +11,7 @@ function addNewFilmCards(films) {
         let film = films[i];
 
         let col = document.createElement("a");
-        col.classList.add("col-6", "col-md-4", "col-lg-3", "mb-4", "offset-md-0");
+        col.classList.add("col-6", "col-md-4", "col-lg-3", "mb-4", "offset-md-0", "filmCard");
         col.href = `film.html?id=${film["id"]}`
 
         let card = document.createElement("div");
@@ -75,7 +75,7 @@ function addNewFilmCards(films) {
 }
 
 function removeExistingFilmCards() {
-    let existingCards = document.querySelectorAll("section > div.col-6");
+    let existingCards = document.querySelectorAll(".filmCard");
     existingCards.forEach(card => {
         card.remove();
     });
@@ -109,25 +109,19 @@ async function main() {
     let upcomingButton = document.querySelector("#upcomingButton");
     upcomingButton.onclick = async () => {
         activateButton(upcomingButton);
-        await updateForFilms(() => {
-            getUpcomingFilms(0);
-        });
+        await updateForFilms(getUpcomingFilms, 1)
     }
 
     let popularButton = document.querySelector("#popularButton");
     popularButton.onclick = async () => {
         activateButton(popularButton);
-        await updateForFilms(() => {
-            getPopularFilms(0);
-        });
+        await updateForFilms(getPopularFilms, 1);
     }
 
     let nowPlayingButton = document.querySelector("#nowPlayingButton");
     nowPlayingButton.onclick = async () => {
         activateButton(nowPlayingButton);
-        await updateForFilms(() => {
-            getFilmsPlayingNow(0);
-        });
+        await updateForFilms(getFilmsPlayingNow, 1);
     }
 
     const debouncedSearch = debounce(async (query) => {
@@ -161,14 +155,14 @@ async function main() {
     activateButton(nowPlayingButton);
     await updateForFilms(getFilmsPlayingNow);
 
-    window.addEventListener("scroll", async () => {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight + 50) { // adds a little buffer when getting to the end
-            await updateForFilms(async () => {
-
-                await CURRENT_FUNCTION.apply(this, );
-            });
-        }
-    });
+    // window.addEventListener("scroll", async () => {
+    //     if (window.innerHeight + window.scrollY >= document.body.offsetHeight + 50) { // adds a little buffer when getting to the end
+    //         await updateForFilms(async () => {
+    //
+    //             await CURRENT_FUNCTION.apply(this, );
+    //         });
+    //     }
+    // });
 }
 
 console.log("loaded")
