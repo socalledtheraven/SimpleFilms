@@ -7,6 +7,10 @@ function addNewFilmCards(films) {
     let row = document.querySelector("section.row");
     row.hidden = true;
 
+    if (films.length === 0) {
+        handleError("NoResults");
+    }
+
     for (let i = 0; i < Object.keys(films).length; i++) {
         let film = films[i];
 
@@ -81,13 +85,42 @@ function removeExistingFilmCards() {
     });
 }
 
+function handleError(type) {
+    let message;
+
+    switch (type) {
+        case "APIError":
+            message = "Sorry! Something went wrong with the API. Please try again later, or check the browser console for more information.";
+            break;
+        case "NoResults":
+            message = "No results for this search.";
+            break;
+        default:
+            message = "Sorry! Something went wrong. Please try again later."
+            break;
+    }
+
+    let errorElement = document.createElement("h2");
+    errorElement.classList.add("text-center", "error", "mt-4");
+    errorElement.textContent = message;
+
+    let container = document.querySelector("main .container");
+
+    container.appendChild(errorElement);
+}
+
 async function updateForFilms(func, ...args) {
     CURRENT_FUNCTION = func;
     let json = await func.apply(this, args);
-    let films = json["results"];
+    try {
+        let films = json["results"];
 
-    removeExistingFilmCards();
-    addNewFilmCards(films);
+        removeExistingFilmCards();
+        addNewFilmCards(films);
+    } catch(e) {
+        console.log(e);
+        handleError("APIError");
+    }
 }
 
 function activateButton(newButton) {
@@ -168,10 +201,5 @@ async function main() {
 console.log("loaded")
 document.addEventListener("DOMContentLoaded", main);
 
-// !TODO:   Should be environmental, so minimal calls if at all possible (https://developer.themoviedb.org/docs/append-to-response), very efficient code
-// !TODO:   save movie page data in localStorage as cache with ID as key - data limit - save with reverse queue to keep only most recent requests
-//              https://developer.themoviedb.org/docs/append-to-response
 // !TODO:   detect scrolls and load more pages of results
-// !TODO:   handle zero results for search!
-// !TODO:   error handling
 // !TODO:   run lighthouse on this thing

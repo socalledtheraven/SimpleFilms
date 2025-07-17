@@ -14,3 +14,7 @@ a:hover {
 a {
     transition: 0.25s;
 }
+
+.error {
+    color: var(--bs-danger);
+}
