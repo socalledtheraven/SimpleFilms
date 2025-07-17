@@ -31,18 +31,20 @@ function createCastCards(data) {
     let cards = [];
 
     for (let member of data) {
-        let link = document.createElement("a");
-        link.href = `https://www.themoviedb.org/person/${member["id"]}-${member["name"].replaceAll(" ", "-")}`;
-        link.textContent = member["name"];
+        // checks that they have a picture before adding them
+        if (member["profile_path"]) {
+            let link = document.createElement("a");
+            link.href = `https://www.themoviedb.org/person/${member["id"]}-${member["name"].replaceAll(" ", "-")}`;
+            link.textContent = member["name"];
 
-        let card = document.createElement("img");
-        card.classList.add("cast-member", "rounded-3");
+            let card = document.createElement("img");
+            card.classList.add("cast-member", "rounded-3");
 
-        card.src = getImageLinkOfCastMember(member["profile_path"]);
-        card.alt = `A picture of ${member["name"]}`;
-
-        link.appendChild(card);
-        cards.push(link);
+            card.src = getImageLinkOfCastMember(member["profile_path"]);
+            card.alt = `A picture of ${member["name"]}`;
+            link.appendChild(card);
+            cards.push(link);
+        }
     }
 
     return cards;
@@ -130,4 +132,4 @@ async function main() {
 console.log("loaded")
 document.addEventListener("DOMContentLoaded", main);
 
-// !TODO: add functional links back to the homepage
+// !TODO: add functionality to search bar on film pages
